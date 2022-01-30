@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FaDollarSign } from "react-icons/fa";
+import Modal from "react-modal";
 import Spinner from "../../components/Spinner";
+import UpdatePlaceModal from "../../components/UpdatePlaceModal";
 import { usePlaces } from "../../services/places.service";
 import { PriceRange, usePriceRanges } from "../../services/price-range.service";
-
+Modal.setAppElement("#root");
 interface PricePickerProps {
   priceRanges: PriceRange[];
   selectedPriceRanges: Set<string>;
@@ -52,6 +54,7 @@ export default function Home() {
   const [selectedPriceRanges, setSelectedPriceRanges] = useState(
     new Set<string>()
   );
+  const [isEditingPlaceId, setIsEditingPlaceId] = useState<string>();
 
   const isLoading = isLoadingPlaces || isLoadingPriceRanges;
 
@@ -128,6 +131,7 @@ export default function Home() {
             <div
               key={place.id}
               className="p-2 rounded-md shadow-md bg-white border border-gray-200"
+              onClick={() => setIsEditingPlaceId(place.id)}
             >
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-semibold">{place.name}</h2>
@@ -149,6 +153,13 @@ export default function Home() {
           ))
         )}
       </div>
+      {isEditingPlaceId && (
+        <UpdatePlaceModal
+          isOpen={!!isEditingPlaceId}
+          onClose={() => setIsEditingPlaceId(undefined)}
+          place={places.find((place) => place.id === isEditingPlaceId)!}
+        />
+      )}
     </div>
   );
 }
