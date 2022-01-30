@@ -5,13 +5,15 @@ export interface Place {
   id: string;
   name: string;
   price: number;
+  rating?: 1 | 2 | 3 | 4 | 5;
 }
 
 export async function getPlaces() {
   const { data, error } = await supabase
     .from<Place>("places")
     .select("*")
-    .order("price", { ascending: false });
+    .order("price", { ascending: false })
+    .order("rating", { ascending: false });
 
   if (error) {
     throw new Error("Error loading places");

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaDollarSign } from "react-icons/fa";
+import { FaDollarSign, FaStar } from "react-icons/fa";
 import Modal from "react-modal";
 import Spinner from "../../components/Spinner";
 import UpdatePlaceModal from "../../components/UpdatePlaceModal";
@@ -142,13 +142,20 @@ export default function Home() {
                         .length
                     ),
                   ].map((elem, i) => (
-                    <FaDollarSign key={i} className="text-yellow-400" />
+                    <FaDollarSign key={i} className="text-green-500" />
                   ))}
                 </div>
               </div>
-              <span className="text-gray-400">
-                ~ {priceFormatter.format(place.price)} / pessoa
-              </span>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-400">
+                  ~ {priceFormatter.format(place.price)} / pessoa
+                </span>
+                <div className="flex">
+                  {[...Array(place.rating || 0)].map((elem, i) => (
+                    <FaStar key={i} className="text-yellow-400" />
+                  ))}
+                </div>
+              </div>
             </div>
           ))
         )}

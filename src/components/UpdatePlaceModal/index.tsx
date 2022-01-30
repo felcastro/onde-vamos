@@ -26,12 +26,19 @@ export default function UpdatePlaceModal({
 
   const [name, setName] = useState(place.name);
   const [price, setPrice] = useState<string>(place.price.toString());
+  const [rating, setRating] = useState<string>(place.rating?.toString() || "");
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
 
     updatePlaceMutation.mutate(
-      { id: place.id, name, price: parseInt(price) },
+      {
+        id: place.id,
+        name,
+        price: parseInt(price),
+        // @ts-ignore
+        rating: rating ? parseInt(rating) : undefined,
+      },
       {
         onSuccess: () => {
           queryClient.invalidateQueries("places");
@@ -127,6 +134,30 @@ export default function UpdatePlaceModal({
             onChange={(e) => setPrice(e.target.value)}
             disabled={updatePlaceMutation.isLoading}
           />
+        </div>
+        <div>
+          <label htmlFor="rating" className="font-semibold">
+            Nota
+          </label>
+          <input
+            id="rating"
+            name="rating"
+            type="number"
+            required
+            placeholder="Nota do local"
+            value={rating}
+            onChange={(e) => {
+              if (["1", "2", "3", "4", "5"].includes(e.target.value)) {
+                setRating(e.target.value);
+              } else {
+                setRating("");
+              }
+            }}
+            disabled={updatePlaceMutation.isLoading}
+          />
+          <span className="text-sm text-gray-400">
+            Informe uma nota de 1 a 5
+          </span>
         </div>
         <div className="flex justify-between mt-4">
           <button
