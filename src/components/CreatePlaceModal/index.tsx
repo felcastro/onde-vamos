@@ -38,23 +38,12 @@ export default function CreatePlaceModal({
           setName("");
           setPrice("");
 
-          toast({
-            title: "Local adicionado!",
-            description: `Novo local adicionado com sucesso.`,
-            status: "success",
-            isClosable: true,
-          });
+          toast.success("Local adicionado!");
 
           onClose();
         },
         onError: () => {
-          toast({
-            title: "Erro ao adicionar local.",
-            description:
-              "Um erro ocorreu ao adicionar o novo local. Tente novamente.",
-            status: "error",
-            isClosable: true,
-          });
+          toast.error("Erro ao adicionar local.");
         },
       }
     );

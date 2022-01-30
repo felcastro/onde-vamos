@@ -43,23 +43,12 @@ export default function UpdatePlaceModal({
         onSuccess: () => {
           queryClient.invalidateQueries("places");
 
-          toast({
-            title: "Local atualizado!",
-            description: `Dados do local alterados com sucesso.`,
-            status: "success",
-            isClosable: true,
-          });
+          toast.success("Local atualizado!");
 
           onClose();
         },
         onError: () => {
-          toast({
-            title: "Erro ao alterar local.",
-            description:
-              "Um erro ocorreu ao alterar os dados do local. Tente novamente.",
-            status: "error",
-            isClosable: true,
-          });
+          toast.error("Erro ao alterar local.");
         },
       }
     );
@@ -70,22 +59,12 @@ export default function UpdatePlaceModal({
       onSuccess: () => {
         queryClient.invalidateQueries("places");
 
-        toast({
-          title: "Local deletado!",
-          description: `Local deletado com sucesso.`,
-          status: "success",
-          isClosable: true,
-        });
+        toast.success("Local deletado!");
 
         onClose();
       },
       onError: () => {
-        toast({
-          title: "Erro ao deletar local.",
-          description: "Um erro ocorreu ao deletar o local. Tente novamente.",
-          status: "error",
-          isClosable: true,
-        });
+        toast.error("Erro ao deletar local.");
       },
     });
   }
