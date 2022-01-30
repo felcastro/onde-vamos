@@ -19,7 +19,7 @@ const places: Place[] = [
 ];
 
 export async function getPlaces() {
-  return places;
+  return places.sort((a, b) => a.price < b.price ? 1 : -1);
 }
 
 export function usePlaces() {
