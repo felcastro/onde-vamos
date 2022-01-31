@@ -1,13 +1,14 @@
 import React, { FormEvent, useState } from "react";
 import { useQueryClient } from "react-query";
-import Modal from "react-modal";
 import { toast } from "react-toastify";
+
 import {
   Place,
   useDeletePlace,
   useUpdatePlace,
 } from "../../services/places.service";
-import { FaTimes } from "react-icons/fa";
+import Modal from "../Modal";
+import FormControl from "../FormControl";
 
 interface UpdatePlaceModalProps {
   isOpen: boolean;
@@ -70,91 +71,64 @@ export default function UpdatePlaceModal({
   }
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      className="absolute left-4 right-4 top-16 border border-gray-200 overflow-auto rounded-md outline-none p-2 bg-white"
-      overlayClassName="fixed inset-0 bg-gray-700 bg-opacity-75"
-      contentLabel="Atualizar local"
-    >
-      <div className="relative">
-        <h2 className="text-xl font-semibold text-center">Atualizar local</h2>
-        <FaTimes
-          className="absolute right-0 text-2xl top-0"
-          onClick={onClose}
+    <Modal isOpen={isOpen} onClose={onClose} title="Atualizar local">
+      <form
+        id="updatePlaceForm"
+        className="flex flex-col gap-2 mt-4"
+        onSubmit={onSubmit}
+      >
+        <FormControl
+          id="name"
+          label="Nome"
+          placeholder="Nome do local"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          disabled={updatePlaceMutation.isLoading}
         />
-      </div>
-      <form className="flex flex-col gap-2 mt-4" onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="name" className="font-semibold">
-            Nome
-          </label>
-          <input
-            id="name"
-            name="name"
-            required
-            placeholder="Nome do local"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            disabled={updatePlaceMutation.isLoading}
-          />
-        </div>
-        <div>
-          <label htmlFor="price" className="font-semibold">
-            Preço
-          </label>
-          <input
-            id="price"
-            name="price"
-            type="number"
-            required
-            placeholder="Valor por pessoa no local"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            disabled={updatePlaceMutation.isLoading}
-          />
-        </div>
-        <div>
-          <label htmlFor="rating" className="font-semibold">
-            Nota
-          </label>
-          <input
-            id="rating"
-            name="rating"
-            type="number"
-            required
-            placeholder="Nota do local"
-            value={rating}
-            onChange={(e) => {
-              if (["1", "2", "3", "4", "5"].includes(e.target.value)) {
-                setRating(e.target.value);
-              } else {
-                setRating("");
-              }
-            }}
-            disabled={updatePlaceMutation.isLoading}
-          />
-          <span className="text-sm text-gray-400">
-            Informe uma nota de 1 a 5
-          </span>
-        </div>
-        <div className="flex justify-between mt-4">
-          <button
-            className="btn btn-danger"
-            onClick={onDelete}
-            disabled={updatePlaceMutation.isLoading}
-          >
-            Deletar
-          </button>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={updatePlaceMutation.isLoading}
-          >
-            Enviar
-          </button>
-        </div>
+        <FormControl
+          id="price"
+          label="Preço"
+          placeholder="Valor por pessoa no local"
+          required
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          disabled={updatePlaceMutation.isLoading}
+        />
+        <FormControl
+          id="rating"
+          label="Nota"
+          placeholder="Nota do local"
+          helpMessage="Informe uma nota de 1 a 5"
+          required
+          value={rating}
+          onChange={(e) => {
+            if (["1", "2", "3", "4", "5"].includes(e.target.value)) {
+              setRating(e.target.value);
+            } else {
+              setRating("");
+            }
+          }}
+          disabled={updatePlaceMutation.isLoading}
+        />
       </form>
+      <div className="flex justify-between mt-4">
+        <button
+          className="btn btn-danger"
+          onClick={onDelete}
+          disabled={updatePlaceMutation.isLoading}
+        >
+          Deletar
+        </button>
+        <button
+          type="submit"
+          form="updatePlaceForm"
+          className="btn btn-primary"
+          disabled={updatePlaceMutation.isLoading}
+        >
+          Enviar
+        </button>
+      </div>
     </Modal>
   );
 }

@@ -10,8 +10,8 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="h-full flex flex-col">
-        <div className="flex-1 overflow-y-scroll mx-2 mt-2">
+      <div className="relative h-full flex flex-col">
+        <div className="flex-1 overflow-y-scroll mx-2">
           <Home />
         </div>
         <Navigation />

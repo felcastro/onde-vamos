@@ -8,8 +8,9 @@ body,
   height: 100%;
 }
 
-body {
-  @apply bg-gray-100 text-gray-500;
+body,
+html {
+  @apply bg-gradient-to-r from-cyan-500 to-blue-500 text-gray-800;
 }
 
 input {
@@ -47,7 +48,7 @@ input {
 }
 
 .btn-outline {
-  @apply border text-inherit bg-inherit;
+  @apply border text-inherit bg-transparent;
 }
 .btn-outline:hover {
   @apply text-gray-50;

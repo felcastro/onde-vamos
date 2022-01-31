@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { FaDollarSign, FaStar } from "react-icons/fa";
-import Modal from "react-modal";
 import Spinner from "../../components/Spinner";
 import UpdatePlaceModal from "../../components/UpdatePlaceModal";
 import { usePlaces } from "../../services/places.service";
 import { PriceRange, usePriceRanges } from "../../services/price-range.service";
-Modal.setAppElement("#root");
 interface PricePickerProps {
   priceRanges: PriceRange[];
   selectedPriceRanges: Set<string>;
@@ -22,9 +20,9 @@ function PricePicker({
     "text-yellow-300 drop-shadow-md text-4xl transition-all duration-200";
 
   return (
-    <div className="flex justify-center gap-2 p-2 rounded-md shadow-md bg-gray-700 border border-gray-800">
+    <div className="absolute top-2 w-full flex justify-center gap-2 p-2 rounded-md shadow-md bg-gray-900 bg-opacity-75">
       {priceRanges.map((price) => (
-        <div className="flex justify-center items-center w-9 h-9">
+        <div className="flex justify-center items-center w-9 h-8">
           <FaDollarSign
             key={price.id}
             className={
@@ -117,13 +115,13 @@ export default function Home() {
       : places?.filter((place) => isInSelectedPriceRange(place.price));
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="relative h-full flex flex-col">
       <PricePicker
         priceRanges={priceRanges}
         selectedPriceRanges={selectedPriceRanges}
         onPriceRangeToggle={togglePriceRange}
       />
-      <div className="flex flex-col gap-2 flex-1 py-2 overflow-y-scroll">
+      <div className="flex flex-col gap-2 flex-1 pt-16 pb-18 overflow-y-scroll">
         {!places || isLoadingPlaces || isErrorPlaces ? (
           <Spinner />
         ) : (
