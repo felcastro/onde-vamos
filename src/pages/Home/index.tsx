@@ -20,7 +20,7 @@ function PricePicker({
     "text-yellow-300 drop-shadow-md text-4xl transition-all duration-200";
 
   return (
-    <div className="absolute top-2 w-full flex justify-center gap-2 p-2 rounded-md shadow-md bg-gray-900 bg-opacity-75">
+    <div className="absolute top-2 left-2 right-2 flex justify-center gap-2 p-2 rounded-md shadow-md bg-gray-900 bg-opacity-75">
       {priceRanges.map((price) => (
         <div className="flex justify-center items-center w-9 h-8">
           <FaDollarSign
@@ -115,13 +115,13 @@ export default function Home() {
       : places?.filter((place) => isInSelectedPriceRange(place.price));
 
   return (
-    <div className="relative h-full flex flex-col">
+    <div className="h-full flex flex-col">
       <PricePicker
         priceRanges={priceRanges}
         selectedPriceRanges={selectedPriceRanges}
         onPriceRangeToggle={togglePriceRange}
       />
-      <div className="flex flex-col gap-2 flex-1 pt-16 pb-18 overflow-y-scroll">
+      <div className="flex flex-col gap-2 flex-1 pt-16 pb-18">
         {!places || isLoadingPlaces || isErrorPlaces ? (
           <Spinner />
         ) : (
