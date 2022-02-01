@@ -11,9 +11,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="relative h-full flex flex-col">
-        <div className="flex-1 overflow-y-scroll mx-2">
+        <main className="flex-1 overflow-y-scroll mx-2">
           <Home />
-        </div>
+        </main>
         <Navigation />
         <ToastContainer
           position="top-center"
