@@ -14,11 +14,11 @@ html {
 }
 
 input {
-  @apply border border-gray-300 w-full rounded-sm px-4 py-2;
+  @apply border border-gray-300 w-full rounded-md px-4 py-2;
 }
 
 .btn {
-  @apply flex justify-center items-center h-10 rounded-sm font-semibold px-4 bg-gray-400 border-gray-400 text-gray-50 transition-all duration-100 select-none;
+  @apply flex justify-center items-center h-10 rounded-md font-semibold px-4 bg-gray-400 border-gray-400 text-gray-50 transition-all duration-100 select-none;
 }
 .btn:hover {
   @apply bg-gray-500 border-gray-500;
